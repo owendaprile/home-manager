@@ -18,7 +18,7 @@
   # Allow unfree packages. (See https://github.com/nix-community/home-manager/issues/2942)
   nixpkgs.config.allowUnfreePredicate = (pkg: true);
 
-  # Enable fish
+  # Fish
   programs.fish = {
     enable = true;
     functions = {
@@ -50,7 +50,7 @@
     };
   };
   
-  # Enable git
+  # Git
   programs.git = {
     enable = true;
     
@@ -78,10 +78,126 @@
     };
   };
   
+  # Neovim
+  programs.neovim = {
+    enable = true;
+    plugins = with pkgs.vimPlugins; [
+      onedark-nvim vim-airline vim-airline-themes vim-signify
+    ];
+    extraConfig = ''
+      " Enable true color
+      set termguicolors
+
+      " ---------
+      "  THEMING
+      " ---------
+
+      " Enable One Dark theme
+      colorscheme onedark
+      let g:onedark_terminal_italics=1
+      highlight EndOfBuffer guifg=#282C34 guibg=#282C34
+      let g:airline_theme='onedark'
+
+
+      " ---------
+      "  AIRLINE
+      " ---------
+
+      " Disable regular status bar
+      set laststatus=2 noshowmode noruler noshowcmd
+
+      " Enable airline
+      let g:airline#extensions#tabline#enabled = 1
+
+      " Tell airline to use powerline fonts (requires a powerline/nerd font)
+      let g:airline_powerline_fonts = 1
+
+
+      " -------
+      "  OTHER
+      " -------
+
+      " Disable soft line wrapping
+      set nowrap
+
+      " Enable mouse mode
+      set mouse=a
+
+      " Enable line numbers
+      set number numberwidth=5
+
+      " Use spaces instead of tabs
+      set tabstop=4 softtabstop=0 shiftwidth=4 expandtab smarttab
+
+      " Yank and paste to and from system clipboard
+      set clipboard=unnamedplus
+
+      " Make write and quit work if I type them in capital on accident like I always
+      " do.
+      command W w
+      command Q q
+      command Wq wq
+      command WQ wq
+
+      " Enable tab completion when typing commands
+      set wildmenu
+      set wildmode=longest:full,full
+
+      " Enable searching improvements
+      set hlsearch incsearch smartcase
+
+      " Don't redraw while executing macros (good for performance)
+      set lazyredraw
+
+      " Better indentation
+      set ai si
+
+      " Allow nvim to set the terminal title
+      set title
+
+      " Map Ctrl-e to clearing the most recent search
+      noremap <silent> <M-e> :let @/=""<cr>
+
+      " Move a line of text with ALT+[jk]
+      nmap <M-j> mz:m+<cr>`z
+      nmap <M-k> mz:m-2<cr>`z
+      vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+      vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+      " Move a line of text with ALT+[jk]
+      nmap <M-Down> mz:m+<cr>`z
+      nmap <M-Up> mz:m-2<cr>`z
+      vmap <M-Down> :m'>+<cr>`<my`>mzgv`yo`z
+      vmap <M-Up> :m'<-2<cr>`>my`<mzgv`yo`z
+
+      " Map Ctrl-h and Ctrl-l to buffer navigation
+      map <C-h> :bp<cr>
+      map <C-l> :bn<cr>
+      map <C-Left> :bp<cr>
+      map <C-Right> :bn<cr>
+
+      " Restore bar terminal cursor on exit
+      autocmd VimLeave * set guicursor=a:ver1
+
+      " Scroll one line at a time
+      "map <ScrollWheelUp> <C-Y>
+      "map <S-ScrollWheelUp> <C-U>
+      "map <ScrollWheelDown> <C-E>
+      "map <S-ScrollWheelDown> <C-D>
+    '';
+  };
+
+  # tmux
+  programs.tmux = {
+    enable = true;
+  };
+
+  # Visual Studio Code
   programs.vscode = {
     enable = true;
   };
   
+  # htop
   programs.htop = {
     enable = true;
     settings = {
@@ -164,9 +280,10 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    bat ffmpeg htop neovim restic yt-dlp
-    plex-mpv-shim
+    # Command line tools
+    bat ffmpeg htop plex-mpv-shim restic tidal-dl wl-clipboard yt-dlp
     
+    # Libraries
     git-credential-manager
   ];
 
@@ -187,11 +304,20 @@
   
   # Set files in XDG config directory.
   xdg.configFile = {
+    # Start 1Password automatically when signing in
     "autostart/1password.desktop".text = ''
       [Desktop Entry]
       Name=1Password
       Type=Application
       Exec=/opt/1Password/1password --silent
+    '';
+
+    # Make npm use XDG directories
+    "npm/npmrc".text = ''
+      prefix = "''${XDG_DATA_HOME}/npm";
+      cache = "''${XDG_CACHE_HOME}/npm";
+      tmp = "''${XDG_RUNTIME_DIR}/npm";
+      init-module = "''${XDG_CONFIG_HOME}/npm/config/npm-init.js";
     '';
   };
   
@@ -200,7 +326,7 @@
     # CLI
     EDITOR = "nvim";
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
-    MANROFFOPT = "-c"
+    MANROFFOPT = "-c";
     BAT_PAGER = "less --chop-long-lines --ignore-case --LONG-PROMPT --quit-if-one-screen  --quit-on-intr --RAW-CONTROL-CHARS";
     SYSTEMD_LESS = "FIKMRS";
     
