@@ -50,6 +50,12 @@
     };
   };
   
+  # SSH
+  programs.ssh = {
+    enable = true;
+    matchBlocks."*".extraOptions.IdentityAgent = "~/.1password/agent.sock";
+  };
+
   # Git
   programs.git = {
     enable = true;
@@ -277,11 +283,39 @@
     };
   };
 
+  # GNOME settings
+  dconf.settings = {
+    "org/gnome/desktop/background" = {
+      picture-uri = "file:///usr/share/backgrounds/gnome/adwaita-l.jpg";
+      picture-uri-dark = "file:///usr/share/backgrounds/gnome/adwaita-d.jpg";
+    };
+    "org/gnome/desktop/datetime" = { automatic-timezone = true; };
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+      clock-show-weekday = true;
+      monospace-font-name = "IntelOne Mono 10";
+      show-battery-percentage = true;
+    };
+    "org/gnome/desktop/media-handling" = { automount = false; };
+    "org/gnome/desktop/peripherals/touchpad" = { tap-to-click = true; };
+    "org/gnome/desktop/wm/preferences" = { action-middle-click-titlebar = "lower"; };
+    "org/gnome/nautilus/preferences" = {
+      show-create-link = true;
+      show-delete-permanently = true;
+    };
+    "org/gnome/shell/app-switcher" = { current-workspace-only = true; };
+    "org/gnome/system/location" = { enabled = true; };
+    "org/gnome/shell" = {
+      enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" ];
+      favorite-apps = [ "org.gnome.Nautilus.desktop" "firefox.desktop" "1password.desktop" "org.gnome.Software.desktop" "org.gnome.Console.desktop" ];
+    };
+  };
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
     # Command line tools
-    bat ffmpeg htop plex-mpv-shim restic tidal-dl wl-clipboard yt-dlp
+    bat ffmpeg htop plex-mpv-shim poetry python3 restic tidal-dl wl-clipboard yt-dlp
     
     # Libraries
     git-credential-manager
