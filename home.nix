@@ -47,6 +47,8 @@
       '';
       
       edit = "flatpak run --file-forwarding org.gnome.TextEditor @@ $argv @@";
+
+      fish_greeting = "";
     };
   };
   
@@ -315,7 +317,7 @@
   # environment.
   home.packages = with pkgs; [
     # Command line tools
-    bat ffmpeg htop plex-mpv-shim poetry python3 restic tidal-dl wl-clipboard yt-dlp
+    ansible bat ffmpeg htop plex-mpv-shim poetry python3 restic tidal-dl wl-clipboard yt-dlp
     
     # Libraries
     git-credential-manager
