@@ -309,7 +309,7 @@
     "org/gnome/system/location" = { enabled = true; };
     "org/gnome/shell" = {
       enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" ];
-      favorite-apps = [ "org.gnome.Nautilus.desktop" "firefox.desktop" "1password.desktop" "org.gnome.Software.desktop" "org.gnome.Console.desktop" ];
+      favorite-apps = [ "org.gnome.Nautilus.desktop" "firefox.desktop" "1password.desktop" "org.gnome.Software.desktop" "com.todoist.Todoist.desktop" "org.gnome.Console.desktop" "com.valvesoftware.Steam.desktop" ];
     };
   };
 
@@ -367,6 +367,7 @@
     SYSTEMD_LESS = "FIKMRS";
     
     # MangoHud
+    MANGOHUD = "1";
     MANGOHUD_LOG_LEVEL = "err";
     
     # XDG
