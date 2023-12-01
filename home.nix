@@ -317,8 +317,8 @@
   # environment.
   home.packages = with pkgs; [
     # Command line tools
-    ansible bat gcc ffmpeg htop plex-mpv-shim poetry python3 restic tidal-dl wl-clipboard yt-dlp
-    cudaPackages.cudatoolkit
+    ansible bat cudaPackages.cudatoolkit gcc ffmpeg htop plex-mpv-shim poetry python3 restic
+    rustup tidal-dl wl-clipboard yt-dlp
     
     # Libraries
     git-credential-manager
