@@ -313,31 +313,15 @@
     };
   };
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
+  # Add packages.
   home.packages = with pkgs; [
     # Command line tools
-    ansible bat cudaPackages.cudatoolkit gcc ffmpeg htop plex-mpv-shim poetry python3 restic
+    ansible bat cudaPackages.cudatoolkit gcc ffmpeg htop plex-mpv-shim poetry python3 restic rr
     rustup tidal-dl wl-clipboard yt-dlp
     
     # Libraries
     git-credential-manager
   ];
-
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-  };
   
   # Set files in XDG config directory.
   xdg.configFile = {
@@ -356,49 +340,49 @@
       tmp = "''${XDG_RUNTIME_DIR}/npm";
       init-module = "''${XDG_CONFIG_HOME}/npm/config/npm-init.js";
     '';
-  };
-  
-  # Set systemd session variables.
-  systemd.user.sessionVariables = {
-    # CLI
-    EDITOR = "nvim";
-    MANPAGER = "sh -c 'col -bx | bat -l man -p'";
-    MANROFFOPT = "-c";
-    BAT_PAGER = "less --chop-long-lines --ignore-case --LONG-PROMPT --quit-if-one-screen  --quit-on-intr --RAW-CONTROL-CHARS";
-    SYSTEMD_LESS = "FIKMRS";
-    
-    # MangoHud
-    MANGOHUD = "1";
-    MANGOHUD_LOG_LEVEL = "err";
-    
-    # XDG
-    XDG_CACHE_HOME = "$HOME/.cache";
-    XDG_CONFIG_HOME = "$HOME/.config";
-    XDG_DATA_HOME = "$HOME/.local/share";
-    XDG_STATE_HOME = "$HOME/.local/state";
-    
-    # XDG Base Directory
-    PYLINTHOME = "$XDG_CACHE_HOME/pylint";
-    NUGET_PACKAGES = "$XDG_CACHE_HOME/nuget";
-    CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
-    GNUPGHOME = "$XDG_CONFIG_HOME/gnupg";
-    IPYTHONDIR = "$XDG_CONFIG_HOME/ipython";
-    NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc";
-    PARALLEL_HOME = "$XDG_CONFIG_HOME/parallel";
-    DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
-    JUPYTER_CONFIG_DIR = "$XDG_CONFIG_HOME/jupyter";
-    LESSHISTFILE = "$XDG_DATA_HOME/lesshst";
-    CARGO_HOME = "$XDG_DATA_HOME/cargo";
-    RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
-    GOPATH = "$XDG_DATA_HOME/go";
-    GDBHISTFILE = "$XDG_DATA_HOME/gdb/history";
-    MACHINE_STORAGE_PATH = "$XDG_DATA_HOME/docker-machine";
-    NODE_REPL_HISTORY = "$XDG_DATA_HOME/node_repl_history";
-    XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
-    _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java";
-    
-    # Show home-manager apps in launcher.
-    XDG_DATA_DIRS = "\$HOME/.nix-profile/share:\$XDG_DATA_DIRS";
+
+    # systemd user session environment variables
+    "environment.d/10-hm.conf".text = ''
+      # CLI
+      EDITOR = "nvim"
+      MANPAGER = "sh -c 'col -bx | bat -l man -p'"
+      MANROFFOPT = "-c"
+      BAT_PAGER = "less --chop-long-lines --ignore-case --LONG-PROMPT --quit-if-one-screen  --quit-on-intr --RAW-CONTROL-CHARS"
+      SYSTEMD_LESS = "FIKMRS"
+
+      # MangoHud
+      MANGOHUD = "1"
+      MANGOHUD_LOG_LEVEL = "err"
+
+      # XDG
+      XDG_CACHE_HOME = "$HOME/.cache"
+      XDG_CONFIG_HOME = "$HOME/.config"
+      XDG_DATA_HOME = "$HOME/.local/share"
+      XDG_STATE_HOME = "$HOME/.local/state"
+
+      # XDG Base Directory
+      PYLINTHOME = "$XDG_CACHE_HOME/pylint"
+      NUGET_PACKAGES = "$XDG_CACHE_HOME/nuget"
+      CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv"
+      GNUPGHOME = "$XDG_CONFIG_HOME/gnupg"
+      IPYTHONDIR = "$XDG_CONFIG_HOME/ipython"
+      NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc"
+      PARALLEL_HOME = "$XDG_CONFIG_HOME/parallel"
+      DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker"
+      JUPYTER_CONFIG_DIR = "$XDG_CONFIG_HOME/jupyter"
+      LESSHISTFILE = "$XDG_DATA_HOME/lesshst"
+      CARGO_HOME = "$XDG_DATA_HOME/cargo"
+      RUSTUP_HOME = "$XDG_DATA_HOME/rustup"
+      GOPATH = "$XDG_DATA_HOME/go"
+      GDBHISTFILE = "$XDG_DATA_HOME/gdb/history"
+      MACHINE_STORAGE_PATH = "$XDG_DATA_HOME/docker-machine"
+      NODE_REPL_HISTORY = "$XDG_DATA_HOME/node_repl_history"
+      XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority"
+      _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java"
+
+      # Show home-manager apps in launcher.
+      XDG_DATA_DIRS = "$HOME/.nix-profile/share:$XDG_DATA_DIRS"
+    '';
   };
 
   # Let Home Manager install and manage itself.
