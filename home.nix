@@ -316,9 +316,14 @@
   # Add packages.
   home.packages = with pkgs; [
     # Command line tools
-    ansible bat cudaPackages.cudatoolkit gcc ffmpeg htop plex-mpv-shim poetry python3 restic rr
-    rustup tidal-dl wl-clipboard yt-dlp
+    ansible bat ffmpeg htop plex-mpv-shim restic rr tidal-dl wl-clipboard yt-dlp
     
+    # Development tools
+    gcc poetry python3 rustup
+
+    # Development libraries
+    cudaPackages.cudatoolkit wayland
+
     # Libraries
     git-credential-manager
   ];
