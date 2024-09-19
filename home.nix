@@ -9,8 +9,7 @@
 
   # Install command line tools only. GUI apps won't work without nixGL.
   home.packages = with pkgs; [
-    bat fd ffmpeg gcc git-credential-manager mkosi pipx python311 restic ripgrep rr rustup
-    wl-clipboard yt-dlp
+    bat fd ffmpeg gcc git-credential-manager mkosi restic ripgrep rr rustup wl-clipboard yt-dlp
   ];
 
   programs.fish = {
@@ -454,9 +453,8 @@
           --tmpfs "$HOME" \
           --bind "$executable_dir" "$executable_dir" \
           --bind "$RENPY_SAVE_DIR" "$HOME/.renpy" \
-          --bind "$XDG_CONFIG_HOME/MangoHud" "$XDG_CONFIG_HOME/MangoHud" \
           --setenv "MESA_LOADER_DRIVER_OVERRIDE" "zink" \
-          mangohud --dlsym "$executable"
+          "$executable"
       '';
     };
 
@@ -486,10 +484,6 @@
     };
     "org/gnome/shell/app-switcher" = { current-workspace-only = true; };
     "org/gnome/system/location" = { enabled = true; };
-    "org/gnome/shell" = {
-      enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" ];
-      favorite-apps = [ "org.gnome.Nautilus.desktop" "org.mozilla.firefox.desktop" "app.devsuite.Ptyxis.desktop" "1password.desktop" "org.gnome.Software.desktop.desktop" "com.plexamp.Plexamp.desktop" "dev.zed.Zed.desktop" "org.darktable.Darktable.desktop" ];
-    };
   };
 
   systemd.user.services = {
