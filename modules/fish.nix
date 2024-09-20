@@ -36,6 +36,7 @@
 
     shellAliases = {
       adb = "HOME=\"$XDG_DATA_HOME/android\" adb";
+      cat = "bat";
     };
 
     plugins = [
