@@ -25,6 +25,7 @@
     ./modules/gnome.nix
     ./modules/htop.nix
     ./modules/mangohud.nix
+    ./modules/restic.nix
     ./modules/scripts.nix
     ./modules/ssh.nix
     ./modules/tmux.nix
