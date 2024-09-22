@@ -5,13 +5,16 @@
 
   xdg.configFile = {
     "restic/backup.conf".text = ''
-      RESTIC_REPOSITORY="sftp:avery@chert.tailnet-aa28.ts.net:/var/mnt/gengar/restic"
-      RESTIC_PASSWORD="zW2jUAsqxkvJmRowLuip"
+      RESTIC_REPOSITORY="s3:s3.us-east-005.backblazeb2.com/restic-e59740da"
+      RESTIC_PASSWORD="HjFmai_j.its3uYs8qFW"
+
+      AWS_ACCESS_KEY_ID=00549cbef09a1330000000002
+      AWS_SECRET_ACCESS_KEY=K005LM7ffOfjHy+bu7Nr/XshKYJaqvc
 
       BACKUP_PATHS=/var/home/owen
       BACKUP_TAGS=Automatic
 
-      UPLOAD_LIMIT=4000
+      UPLOAD_LIMIT=5000
 
       RETENTION_DAYS=7
       RETENTION_WEEKS=4
@@ -20,28 +23,32 @@
     '';
 
     "restic/excludes.conf".text = ''
-      $HOME/.1password
-      $HOME/.android
-      $HOME/.BitwigStudio
-      $HOME/.cache
-      $HOME/.gradle
-      $HOME/.java
-      $HOME/.local/share
-      $HOME/.local/state
-      $HOME/.jdks
-      $HOME/.pki
-      $HOME/.skiko
+      $HOME/.1password/
+      $HOME/.android/
+      $HOME/.BitwigStudio/
+      $HOME/.cache/
+      $HOME/.gradle/
+      $HOME/.java/
+      $HOME/.local/share/
+      $HOME/.local/state/
+      $HOME/.jdks/
+      $HOME/.pki/
+      $HOME/.skiko/
+      $HOME/.vscode/
 
-      $HOME/Downloads
-      $HOME/Dropbox
-      $HOME/Google Drive
-      $HOME/Music
-      $HOME/Videos
+      $HOME/Downloads/
+      $HOME/Dropbox/
+      $HOME/Google Drive/
+      $HOME/Music/
+      $HOME/Videos/
 
-      $HOME/.var/app/**/cache
-      $HOME/.var/app/**/.cache
-      $HOME/.var/app/**/data
-      $HOME/.var/app/**/.local/share
+      $HOME/.var/app/**/cache/
+      $HOME/.var/app/**/.cache/
+      $HOME/.var/app/**/data/
+      $HOME/.var/app/**/.local/share/
+
+      **/mkosi.cache/
+      **/mkosi.output/
     '';
   };
 
