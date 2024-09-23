@@ -31,7 +31,9 @@
 
       edit = "flatpak run --file-forwarding org.gnome.TextEditor @@ $argv @@";
 
-      fish_greeting = "";
+      fish_greeting = ''
+        systemctl --user list-units --quiet --state=failed
+      '';
 
       restic-chert = {
         wraps = "restic";
