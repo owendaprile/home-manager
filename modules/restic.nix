@@ -65,6 +65,7 @@
         EnvironmentFile = "%h/.config/restic/backup.conf";
         ExecStart = "restic backup --verbose --limit-upload \"$UPLOAD_LIMIT\" --exclude-file %h/.config/restic/excludes.conf --exclude-caches --tag \"$BACKUP_TAGS\" $BACKUP_PATHS";
         ExecStartPost = "restic forget --verbose --tag \"$BACKUP_TAGS\" --keep-daily \"$RETENTION_DAYS\" --keep-weekly \"$RETENTION_WEEKS\" --keep-monthly \"$RETENTION_MONTHS\" --keep-yearly \"$RETENTION_YEARS\"";
+        ExecStopPost = "restic unlock --remove-all";
         TimeoutStopSec = "2m";
         SendSIGKILL = false;
         SuccessExitStatus = 3;
