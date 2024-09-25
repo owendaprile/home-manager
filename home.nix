@@ -29,5 +29,6 @@
     ./modules/scripts.nix
     ./modules/ssh.nix
     ./modules/tmux.nix
+    ./modules/zed.nix
   ];
 }
