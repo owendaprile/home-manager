@@ -60,11 +60,16 @@
           command op run -- restic $argv
         '';
       };
+
+      rm = ''
+        echo "rm is disabled. use `ts` to move items to trash, or `command rm` to use rm."
+      '';
     };
 
     shellAliases = {
       adb = "HOME=\"$XDG_DATA_HOME/android\" adb";
       cat = "bat";
+      ts = "gio trash";
     };
 
     plugins = [
