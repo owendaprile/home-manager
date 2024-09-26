@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  home.packages = with pkgs; [ git-credential-manager ];
+
   programs.git = {
     enable = true;
     lfs.enable = true;

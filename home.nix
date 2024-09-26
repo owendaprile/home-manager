@@ -13,8 +13,7 @@
 
   # Install command line programs.
   home.packages = with pkgs; [
-    bat fd ffmpeg gcc git-credential-manager mkosi nix-index restic ripgrep rr rustup wl-clipboard
-    yt-dlp
+    bat fd ffmpeg gcc mkosi nix-index ripgrep rr rustup wl-clipboard yt-dlp
   ];
 
   # Import configuration modules.

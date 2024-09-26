@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  home.packages = [ pkgs.restic ];
+  home.packages = with pkgs; [ restic ];
 
   xdg.configFile = {
     "restic/backup.conf".text = ''
