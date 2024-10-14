@@ -3,7 +3,7 @@
 {
   # Add modules here.
   imports = [
-    ./autostart.nix
+    ./1password.nix
     ./environment.nix
     ./fish.nix
     ./git.nix

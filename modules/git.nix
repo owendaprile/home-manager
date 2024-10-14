@@ -11,12 +11,6 @@
     userEmail = "git@owen.sh";
 
     extraConfig = {
-      user.signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFU4lMOhpVNMEmsMxpIi06oEnFC0WNn5UkTYs5cMXDC";
-      gpg.format = "ssh";
-      "gpg \"ssh\"".program = "/opt/1Password/op-ssh-sign";
-      "gpg \"ssh\"".allowedSignersFile = "${config.home.homeDirectory}/.config/git/allowed_signers";
-      commit.gpgsign = true;
-
       commit.verbose = true;
       init.defaultBranch = "main";
       pull.ff = "only";
@@ -39,6 +33,4 @@
     };
   };
 
-  xdg.configFile."git/allowed_signers".text =
-    "git@owen.sh ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFU4lMOhpVNMEmsMxpIi06oEnFC0WNn5UkTYs5cMXDC";
 }

@@ -69,6 +69,7 @@
     shellAliases = {
       adb = "HOME=\"$XDG_DATA_HOME/android\" adb";
       cat = "bat";
+      tdn = "toolbox run --container fedora-toolbox-latest ~/.local/bin/tdn";
       ts = "gio trash";
     };
 
