@@ -86,4 +86,32 @@
       };
     };
   };
+
+  programs.fish.functions = {
+    restic-chert = {
+      wraps = "restic";
+      body = ''
+        set OP_ITEM_ID "b2sf5yjq54bmckhib5pfnln2ay"
+        set -x RESTIC_REPOSITORY "op://Private/$OP_ITEM_ID/restic repository"
+        set -x RESTIC_PASSWORD "op://Private/$OP_ITEM_ID/restic password"
+        set -x AWS_ACCESS_KEY_ID "op://Private/$OP_ITEM_ID/access key id"
+        set -x AWS_SECRET_ACCESS_KEY "op://Private/$OP_ITEM_ID/secret access key"
+
+        command op run -- restic $argv
+      '';
+    };
+
+    restic-pulsar = {
+      wraps = "restic";
+      body = ''
+        set OP_ITEM_ID "fikkpqldm7vhrhbenjgbnlqyb4"
+        set -x RESTIC_REPOSITORY "op://Private/$OP_ITEM_ID/restic repository"
+        set -x RESTIC_PASSWORD "op://Private/$OP_ITEM_ID/restic password"
+        set -x AWS_ACCESS_KEY_ID "op://Private/$OP_ITEM_ID/access key id"
+        set -x AWS_SECRET_ACCESS_KEY "op://Private/$OP_ITEM_ID/secret access key"
+
+        command op run -- restic $argv
+      '';
+    };
+  };
 }
