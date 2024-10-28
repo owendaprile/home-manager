@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  home.packages = with pkgs; [ nixd ];
+
   xdg.configFile."zed/settings.json".text = ''
   {
     "theme": "Ayu Dark",
