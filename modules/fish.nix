@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  home.packages = with pkgs; [ wl-clipboard ];
+
   programs.fish = {
     enable = true;
 
