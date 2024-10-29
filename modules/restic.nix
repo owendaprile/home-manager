@@ -5,8 +5,8 @@
 
   xdg.configFile = {
     "restic/backup.conf".text = ''
-      RESTIC_REPOSITORY="s3:s3.us-east-005.backblazeb2.com/restic-e59740da"
-      RESTIC_PASSWORD="HjFmai_j.its3uYs8qFW"
+      RESTIC_REPOSITORY="s3:s3.us-east-005.backblazeb2.com/restic-slate"
+      RESTIC_PASSWORD="d9mJ4v4wvqhZN.Zodw.j"
 
       AWS_ACCESS_KEY_ID=00549cbef09a1330000000002
       AWS_SECRET_ACCESS_KEY=K005LM7ffOfjHy+bu7Nr/XshKYJaqvc
@@ -63,9 +63,9 @@
         Type = "oneshot";
         Environment = "XDG_CACHE_HOME=%T";
         EnvironmentFile = "%h/.config/restic/backup.conf";
-        ExecStart = "restic backup --verbose --limit-upload \"$UPLOAD_LIMIT\" --exclude-file %h/.config/restic/excludes.conf --exclude-caches --tag \"$BACKUP_TAGS\" $BACKUP_PATHS";
-        ExecStartPost = "restic forget --verbose --tag \"$BACKUP_TAGS\" --keep-daily \"$RETENTION_DAYS\" --keep-weekly \"$RETENTION_WEEKS\" --keep-monthly \"$RETENTION_MONTHS\" --keep-yearly \"$RETENTION_YEARS\"";
-        ExecStopPost = "restic unlock --remove-all";
+        ExecStart = "${pkgs.restic}/bin/restic backup --verbose --limit-upload \"$UPLOAD_LIMIT\" --exclude-file %h/.config/restic/excludes.conf --exclude-caches --tag \"$BACKUP_TAGS\" $BACKUP_PATHS";
+        ExecStartPost = "${pkgs.restic}/bin/restic forget --verbose --tag \"$BACKUP_TAGS\" --keep-daily \"$RETENTION_DAYS\" --keep-weekly \"$RETENTION_WEEKS\" --keep-monthly \"$RETENTION_MONTHS\" --keep-yearly \"$RETENTION_YEARS\"";
+        ExecStopPost = "${pkgs.restic}/bin/restic unlock --remove-all";
         TimeoutStopSec = "2m";
         SendSIGKILL = false;
         SuccessExitStatus = 3;
@@ -102,6 +102,19 @@
     };
 
     restic-pulsar = {
+      wraps = "restic";
+      body = ''
+        set OP_ITEM_ID "b7uktoufnhx6gnnxjl4653weyq"
+        set -x RESTIC_REPOSITORY "op://Private/$OP_ITEM_ID/restic repository"
+        set -x RESTIC_PASSWORD "op://Private/$OP_ITEM_ID/restic password"
+        set -x AWS_ACCESS_KEY_ID "op://Private/$OP_ITEM_ID/access key id"
+        set -x AWS_SECRET_ACCESS_KEY "op://Private/$OP_ITEM_ID/secret access key"
+
+        command op run -- restic $argv
+      '';
+    };
+
+    restic-slate = {
       wraps = "restic";
       body = ''
         set OP_ITEM_ID "fikkpqldm7vhrhbenjgbnlqyb4"
