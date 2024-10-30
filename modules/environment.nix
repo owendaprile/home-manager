@@ -18,9 +18,6 @@
       # Docker
       DOCKER_HOST = "unix://$XDG_RUNTIME_DIR/podman/podman.sock"
 
-      # Restic
-      RESTIC_REPOSITORY = "sftp:avery@chert.tailnet-aa28.ts.net:/var/mnt/gengar/restic/"
-
       # XDG
       XDG_CACHE_HOME = "$HOME/.cache"
       XDG_CONFIG_HOME = "$HOME/.config"
