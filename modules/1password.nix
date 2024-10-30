@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 
 {
   systemd.user.services = {
@@ -35,4 +35,12 @@
     "git@owen.sh ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFU4lMOhpVNMEmsMxpIi06oEnFC0WNn5UkTYs5cMXDC";
 
   programs.ssh.matchBlocks."*".extraOptions.IdentityAgent = "~/.1password/agent.sock";
+
+  dconf.settings = {
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" = {
+      binding = "<Super>c";
+      command = "1password --quick-access";
+      name = "1Password Quick Access (home-manager)";
+    };
+  };
 }
