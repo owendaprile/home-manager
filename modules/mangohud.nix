@@ -1,6 +1,7 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 
 {
+  # Enable and configure MangoHud.
   programs.mangohud = {
     enable = true;
 

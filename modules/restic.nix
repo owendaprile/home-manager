@@ -1,8 +1,10 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
+  # Install restic.
   home.packages = with pkgs; [ restic ];
 
+  # Automatic backup configuration files.
   xdg.configFile = {
     "restic/backup.conf".text = ''
       RESTIC_REPOSITORY="s3:s3.us-east-005.backblazeb2.com/restic-slate"
@@ -52,6 +54,7 @@
     '';
   };
 
+  # Automatic backup systemd units.
   systemd.user = {
     services.restic-backup = {
       Unit = {
@@ -87,6 +90,7 @@
     };
   };
 
+  # Fish functions for running restic with 1Password credentials.
   programs.fish.functions = {
     restic-chert = {
       wraps = "restic";

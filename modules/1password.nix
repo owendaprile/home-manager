@@ -1,6 +1,8 @@
 { config, ... }:
 
 {
+  # Autostart 1Password on login, restart it when it quits due to rpm-ostree
+  # staging an update.
   systemd.user.services = {
     "1password" = {
       Unit = {
@@ -21,6 +23,7 @@
     };
   };
 
+  # Configure Git to use the 1Password SSH key.
   programs.git = {
     extraConfig = {
       user.signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFU4lMOhpVNMEmsMxpIi06oEnFC0WNn5UkTYs5cMXDC";
@@ -31,11 +34,14 @@
     };
   };
 
+  # Allow Git to verify commits signed by the 1Password SSH key.
   xdg.configFile."git/allowed_signers".text =
     "git@owen.sh ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFU4lMOhpVNMEmsMxpIi06oEnFC0WNn5UkTYs5cMXDC";
 
+  # Configure SSH to use 1Password for key authentication.
   programs.ssh.matchBlocks."*".extraOptions.IdentityAgent = "~/.1password/agent.sock";
 
+  # Add shortcut for 1Password quick access.
   dconf.settings = {
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" = {
       binding = "<Super>c";

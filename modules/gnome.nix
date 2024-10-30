@@ -1,6 +1,7 @@
 { ... }:
 
 {
+  # Configure GNOME settings in dconf.
   dconf.settings = {
     "org/gnome/desktop/background" = {
       picture-uri = "file:///usr/share/backgrounds/gnome/adwaita-l.jxl";

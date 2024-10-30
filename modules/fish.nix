@@ -1,8 +1,7 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ wl-clipboard ];
-
+  # Enable and configure Fish.
   programs.fish = {
     enable = true;
 
@@ -30,16 +29,9 @@
           printf "Error: unknown session type $XDG_SESSION_TYPE"
         end
       '';
-
       edit = "flatpak run --file-forwarding org.gnome.TextEditor @@ $argv @@";
-
-      fish_greeting = ''
-        systemctl --user list-units --quiet --state=failed
-      '';
-
-      rm = ''
-        echo "rm is disabled. use `ts` to move items to trash, or `command rm` to use rm."
-      '';
+      fish_greeting = "systemctl --user list-units --quiet --state=failed";
+      rm = "echo 'rm is disabled. use `ts` to move items to trash, or `command rm` to use rm.'";
     };
 
     shellAliases = {
@@ -61,4 +53,7 @@
       }
     ];
   };
+
+  # Add Fish-related packages.
+  home.packages = with pkgs; [ wl-clipboard ];
 }

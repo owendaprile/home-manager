@@ -1,6 +1,7 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
+  # Set session-wide environment variables.
   xdg.configFile = {
     "environment.d/10-home-manager.conf".text = ''
       # CLI
@@ -39,6 +40,7 @@
       # Show home-manager apps in launcher.
       #XDG_DATA_DIRS = "$HOME/.nix-profile/share:$XDG_DATA_DIRS"
 
+      # Add Nix and ~/.local/bin to PATH.
       PATH = "/nix/var/nix/profiles/default/bin:$PATH"
       PATH = "$XDG_STATE_HOME/nix/profiles/profile/bin:$PATH"
       PATH = "$HOME/.local/bin:$PATH"

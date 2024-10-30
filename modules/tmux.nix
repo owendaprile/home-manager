@@ -1,8 +1,10 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
+  # Enable tmux.
   programs.tmux.enable = true;
 
+  # Old tmux configuration file.
   xdg.configFile."tmux/tmux.conf".text = ''
     ########################
     ### USABILITY TWEAKS ###

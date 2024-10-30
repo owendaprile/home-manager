@@ -1,8 +1,7 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ gh git-credential-manager ];
-
+  # Enable and configure Git.
   programs.git = {
     enable = true;
     lfs.enable = true;
@@ -33,4 +32,6 @@
     };
   };
 
+  # Add Git-related packages.
+  home.packages = with pkgs; [ gh git-credential-manager ];
 }
