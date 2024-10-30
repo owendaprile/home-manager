@@ -24,13 +24,6 @@
     "chat_panel": {
       "button": false
     },
-    "assistant": {
-      "default_model": {
-        "provider": "zed.dev",
-        "model": "claude-3-5-sonnet-20240620"
-      },
-      "version": "2"
-    },
     "features": {
       "inline_completion_provider": "none"
     }
