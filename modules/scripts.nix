@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   home.file = {
@@ -81,10 +81,11 @@
             --dev-bind "/dev/dri" "/dev/dri" \
             --proc "/proc" \
             --tmpfs "$HOME" \
+            --bind "$XDG_CONFIG_HOME/MangoHud" "$XDG_CONFIG_HOME/MangoHud" \
             --bind "$executable_dir" "$executable_dir" \
             --bind "$RENPY_SAVE_DIR" "$HOME/.renpy" \
             --setenv "MESA_LOADER_DRIVER_OVERRIDE" "zink" \
-            "$executable"
+            ${pkgs.mangohud}/bin/mangohud --dlsym "$executable"
       '';
     };
 
