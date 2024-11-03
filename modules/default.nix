@@ -10,6 +10,7 @@
     ./gnome.nix
     ./htop.nix
     ./mangohud.nix
+    ./mpv.nix
     ./restic.nix
     ./scripts.nix
     ./ssh.nix
